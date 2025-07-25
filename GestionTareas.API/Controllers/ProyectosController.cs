@@ -39,10 +39,14 @@ namespace GestionTareas.API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Proyecto proyecto)
         {
-            var query = "INSERT INTO proyectos (nombre,descripcion,fecha_inicio,fecha_fin,estado) VALUES(@Nombre,@Descripcion,@FechaInicio,@FechaFin,@Estado)";
-            _connection.Execute(query, proyecto);
+            var query = @"INSERT INTO proyectos (nombre,descripcion,fecha_inicio,fecha_fin,estado)
+                          VALUES(@Nombre,@Descripcion,@FechaInicio,@FechaFin,@Estado);
+                          SELECT CAST(SCOPE_IDENTITY() as int);";
+            var id = _connection.QuerySingle<int>(query, proyecto);
 
-            var pObtenido = _connection.QuerySingle<Proyecto>("SELECT id,nombre,descripcion,fecha_inicio,fecha_fin AS FechaFin,estado FROM proyectos WHERE nombre = @Nombre", new { proyecto.Nombre });
+            var pObtenido = _connection.QuerySingle<Proyecto>(
+                "SELECT id,nombre,descripcion,fecha_inicio,fecha_fin AS FechaFin,estado FROM proyectos WHERE id = @id", new { id });
+
             return CreatedAtAction(nameof(Get), new { id = pObtenido.Id }, pObtenido);
         }
 
