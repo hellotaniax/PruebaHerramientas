@@ -1,0 +1,17 @@
+# Ignorar archivos generados por Visual Studio
+.vs/
+.vscode/
+.idea/
+
+# Ignorar archivos de compilación
+bin/
+obj/
+
+# Ignorar archivos de configuración de usuario
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# Ignorar archivos de paquetes y dependencias
+packages/
