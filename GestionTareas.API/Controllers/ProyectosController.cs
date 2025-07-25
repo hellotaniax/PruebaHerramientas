@@ -17,6 +17,25 @@ namespace GestionTareas.API.Controllers
         {
             _connection = connection;
         }
+
+        // GET api/Proyectos/{id}/tareas
+        [HttpGet("{id}/tareas")]
+        public IActionResult GetTareasByProyecto(int id)
+        {
+            var query = @"
+            SELECT t.id, t.titulo, t.descripcion, t.fecha_creacion, t.fecha_vencimiento AS FechaVencimiento, t.estado 
+            FROM tareas t
+            WHERE t.proyecto_id = @ProyectoId";
+
+            var tareas = _connection.Query<Tarea>(query, new { ProyectoId = id }).ToList();
+
+            if (tareas == null || !tareas.Any())
+            {
+                return NotFound($"No tasks found for project with ID {id}.");
+            }
+
+            return Ok(tareas); 
+        }
         // GET: api/<ProyectosController>
         [HttpGet]
         public IActionResult GetAll()

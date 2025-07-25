@@ -1,0 +1,63 @@
+﻿@model ProyectoDetallesViewModel
+
+@{
+    ViewData["Title"] = "Detalles del Proyecto";
+}
+
+<h2>Detalles del Proyecto</h2>
+
+<div>
+    <strong>Nombre:</strong> @Model.Proyecto.Nombre
+</div>
+<div>
+    <strong>Descripción:</strong> @Model.Proyecto.Descripcion
+</div>
+<div>
+    <strong>Fecha de Inicio:</strong> @Model.Proyecto.FechaInicio.ToString("dd/MM/yyyy")
+</div>
+<div>
+    <strong>Fecha de Fin:</strong> @Model.Proyecto.FechaFin?.ToString("dd/MM/yyyy")
+</div>
+<div>
+    <strong>Estado:</strong> @Model.Proyecto.Estado
+</div>
+
+<h3>Tareas Asociadas</h3>
+@if (Model.Tareas != null && Model.Tareas.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th>Fecha de Vencimiento</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tarea in Model.Tareas)
+            {
+                <tr>
+                    <td>@tarea.Titulo</td>
+                    <td>@tarea.Descripcion</td>
+                    <td>@tarea.Estado</td>
+                    <td>@tarea.FechaVencimiento?.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a href="@Url.Action("Details", "Tareas", new { id = tarea.Id })">Ver</a> |
+                        <a href="@Url.Action("Edit", "Tareas", new { id = tarea.Id })">Editar</a> |
+                        <form method="post" action="@Url.Action("Delete", "Tareas", new { id = tarea.Id })" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hay tareas asociadas a este proyecto.</p>
+}
+
+<a href="@Url.Action("Index", "Proyectos")" class="btn btn-primary">Volver</a>

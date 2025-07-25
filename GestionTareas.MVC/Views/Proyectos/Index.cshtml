@@ -1,0 +1,41 @@
+﻿@model IEnumerable<GestionTareas.API.Models.Proyecto>
+
+@{
+    ViewData["Title"] = "Lista de Proyectos";
+}
+
+<h2>Lista de Proyectos</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var proyecto in Model)
+        {
+            <tr>
+                <td>@proyecto.Nombre</td>
+                <td>@proyecto.Descripcion</td>
+                <td>@proyecto.FechaInicio.ToString("dd/MM/yyyy")</td>
+                <td>@proyecto.FechaFin?.ToString("dd/MM/yyyy")</td>
+                <td>@proyecto.Estado</td>
+                <td>
+                    <a href="@Url.Action("Details", "Proyectos", new { id = proyecto.Id })">Ver</a> |
+                    <a href="@Url.Action("Edit", "Proyectos", new { id = proyecto.Id })">Editar</a> |
+                    <form method="post" action="@Url.Action("Delete", "Proyectos", new { id = proyecto.Id })" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create", "Proyectos")" class="btn btn-success">Crear Proyecto</a>

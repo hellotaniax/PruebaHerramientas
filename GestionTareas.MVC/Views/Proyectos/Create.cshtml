@@ -1,0 +1,41 @@
+﻿@model GestionTareas.API.Models.Proyecto
+
+@{
+    ViewData["Title"] = "Crear Proyecto";
+}
+
+<h2>Crear Proyecto</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Nombre">Nombre</label>
+        <input type="text" class="form-control" id="Nombre" name="Nombre" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Descripcion">Descripción</label>
+        <textarea class="form-control" id="Descripcion" name="Descripcion" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="FechaInicio">Fecha de Inicio</label>
+        <input type="date" class="form-control" id="FechaInicio" name="FechaInicio" required />
+    </div>
+
+    <div class="form-group">
+        <label for="FechaFin">Fecha de Fin</label>
+        <input type="date" class="form-control" id="FechaFin" name="FechaFin" />
+    </div>
+
+    <div class="form-group">
+        <label for="Estado">Estado</label>
+        <select class="form-control" id="Estado" name="Estado">
+            <option value="activo">activo</option>
+            <option value="completado">completado</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Crear</button>
+</form>
+
+<a href="@Url.Action("Index", "Proyectos")" class="btn btn-primary">Volver</a>
