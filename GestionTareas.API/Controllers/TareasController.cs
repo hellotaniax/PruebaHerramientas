@@ -94,10 +94,17 @@ namespace GestionTareas.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            // Eliminar las filas relacionadas en historial_tareas
+            var queryHistorial = "DELETE FROM historial_tareas WHERE tarea_id = @id";
+            _connection.Execute(queryHistorial, new { id });
+
+            // Luego eliminar la tarea
             var query = "DELETE FROM tareas WHERE id = @id";
             var filasAfectadas = _connection.Execute(query, new { id });
+
             if (filasAfectadas == 0)
                 return NotFound();
+
             return NoContent();
         }
     }

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<GestionTareas.API.Models.Tarea>
+
+<h1>Tareas</h1>
+
+<a href="@Url.Action("Create")" class="btn btn-primary">Crear Nueva Tarea</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Prioridad</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tarea in Model)
+        {
+            <tr>
+                <td>@tarea.Titulo</td>
+                <td>@tarea.Descripcion</td>
+                <td>@tarea.Estado</td>
+                <td>@tarea.Prioridad</td>
+                <td>
+                    <a href="@Url.Action("Details", new { id = tarea.Id })" class="btn btn-info">Ver</a>
+                    <a href="@Url.Action("Edit", new { id = tarea.Id })" class="btn btn-warning">Editar</a>
+                    <form action="@Url.Action("DeleteConfirmed", new { id = tarea.Id })" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta tarea?')">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

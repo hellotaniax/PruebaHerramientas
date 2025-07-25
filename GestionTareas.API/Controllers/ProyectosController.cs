@@ -29,12 +29,19 @@ namespace GestionTareas.API.Controllers
 
             var tareas = _connection.Query<Tarea>(query, new { ProyectoId = id }).ToList();
 
+            // Depuración
+            if (tareas.Count == 1)
+            {
+                Console.WriteLine($"Solo se encontró una tarea con el ProyectoId {id}");
+            }
+
             if (tareas == null || !tareas.Any())
             {
                 return NotFound($"No tasks found for project with ID {id}.");
             }
 
-            return Ok(tareas); 
+            return Ok(tareas);
+
         }
         // GET: api/<ProyectosController>
         [HttpGet]

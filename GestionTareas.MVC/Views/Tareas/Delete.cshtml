@@ -1,0 +1,30 @@
+﻿@model GestionTareas.API.Models.Tarea
+
+<h1>Eliminar Tarea</h1>
+
+<div>
+    <h3>¿Estás seguro de que deseas eliminar la tarea?</h3>
+    <div>
+        <strong>Título:</strong> @Model.Titulo
+    </div>
+    <div>
+        <strong>Descripción:</strong> @Model.Descripcion
+    </div>
+    <div>
+        <strong>Estado:</strong> @Model.Estado
+    </div>
+    <div>
+        <strong>Prioridad:</strong> @Model.Prioridad
+    </div>
+    <div>
+        <strong>Asignado a:</strong> @Model.UsuarioAsignado?.Nombre
+    </div>
+    <div>
+        <strong>Proyecto:</strong> @Model.Proyecto?.Nombre
+    </div>
+
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

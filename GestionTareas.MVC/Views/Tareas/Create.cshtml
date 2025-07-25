@@ -1,0 +1,53 @@
+﻿@model GestionTareas.API.Models.Tarea
+
+<h1>Crear Nueva Tarea</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Titulo" class="control-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Descripcion" class="control-label"></label>
+        <textarea asp-for="Descripcion" class="form-control"></textarea>
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Estado" class="control-label"></label>
+        <select asp-for="Estado" class="form-control">
+            <option value="pendiente">Pendiente</option>
+            <option value="en Progreso">En Progreso</option>
+            <option value="completada">Completada</option>
+        </select>
+        <span asp-validation-for="Estado" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Prioridad" class="control-label"></label>
+        <select asp-for="Prioridad" class="form-control">
+            <option value="baja">Baja</option>
+            <option value="media">Media</option>
+            <option value="alta">Alta</option>
+        </select>
+        <span asp-validation-for="Prioridad" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UsuarioAsignadoId" class="control-label"></label>
+        <input asp-for="UsuarioAsignadoId" class="form-control" />
+        <span asp-validation-for="UsuarioAsignadoId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProyectoId" class="control-label"></label>
+        <input asp-for="ProyectoId" class="form-control" />
+        <span asp-validation-for="ProyectoId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear</button>
+</form>
+
+<a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>
